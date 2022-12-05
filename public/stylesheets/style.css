@@ -1,0 +1,134 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.game-container {
+  max-width: 500px;
+}
+.game-wrapper {
+  background-color: rgb(154, 186, 255);
+  height: 500px;
+  width: 700px;
+}
+.flex {
+  display: flex;
+  width: 700px;
+}
+
+.mb-3 {
+  margin-left: 15px;
+  width: 80px;
+}
+
+.sent .myid {
+  text-align: right;
+}
+.sent .msg {
+  background-color: yellow;
+  border-radius: 15px;
+  margin-left: 70%;
+  padding-left: 20px;
+  height: 35px;
+  padding-top: 5px;
+}
+
+.received .msg {
+  background-color: white;
+  border-radius: 15px;
+  text-align: right;
+  margin-right: 70%;
+  padding-right: 20px;
+  height: 35px;
+  padding-top: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+#timer {
+  background-color: rgb(39, 39, 255);
+  color: white;
+  width: 100px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#warning {
+  background-color: rgb(255, 104, 104);
+  color: white;
+  width: 200px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#result {
+  background-color: white;
+  border: 2px solid grey;
+  width: 700px;
+  text-align: center;
+}
+#description {
+  font-size: 20px;
+  background-color: rgb(99, 99, 255);
+  width: 100px;
+  margin: auto;
+  color: white;
+  border-radius: 8px;
+}
+
+#title {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 18px;
+}
+
+#numbering {
+  width: 100px;
+  margin-left: 120px;
+}
+#userId {
+  width: 100px;
+  margin-left: 75px;
+}
+#score {
+  margin-right: 15px;
+  width: 250px;
+}
+
+#reset {
+  background-color: rgb(99, 99, 255);
+  color: white;
+  width: 100px;
+  margin-top: 15px;
+}
+#result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.listWrapper {
+  display: flex;
+  /* justify-content: space-evenly; */
+}
+
+#flexBox {
+  display: flex;
+}
+
+#notice {
+  font-size: 20px;
+  background-color: rgb(99, 99, 255);
+  border: 1px solid grey;
+  border-radius: 15px;
+  width: 400px;
+  color: white;
+  margin-bottom: 20px;
+  margin-left: 35px;
+}
