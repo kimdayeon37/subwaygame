@@ -18,6 +18,7 @@ const socketHandler = (server) => {
     const socket_id = socket.id; //id 자동배정
     const client_ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress; //ip주소
     allUsers.push(socket_id);
+    console.log("myId", socket.id);
 
     // 처음 들어오면 채팅방은 안보여줌
     io.to(socket_id).emit("hideChat", ["nonFlex", "game-chat"]);
@@ -29,18 +30,23 @@ const socketHandler = (server) => {
 
     socket.on("ready", (data) => {
       idNames = { ...idNames, ...data.idName };
-      if (readyUsers.length < 3) {
-        readyUsers.push(data.currId);
-        const set = new Set(readyUsers);
-        readyUsers = [...set];
-        const { idName } = data;
-        readyUsers.forEach((id) => {
-          io.to(id).emit("startGame", { readyUsers, idNames });
-        });
-        let otherUser = allUsers.filter((user) => !readyUsers.includes(user));
-        otherUser.forEach((id) => {
-          io.to(id).emit("alreadyStart", readyUsers.length);
-        });
+      console.log(readyUsers);
+      if (data.isReplay) {
+        readyUsers = [];
+      } else {
+        if (readyUsers.length < 3) {
+          readyUsers.push(data.currId);
+          const set = new Set(readyUsers);
+          readyUsers = [...set];
+          const { idName } = data;
+          readyUsers.forEach((id) => {
+            io.to(id).emit("startGame", { readyUsers, idNames });
+          });
+          let otherUser = allUsers.filter((user) => !readyUsers.includes(user));
+          otherUser.forEach((id) => {
+            io.to(id).emit("alreadyStart", readyUsers.length);
+          });
+        }
       }
     });
     socket.on("timerData", (data) => {
@@ -57,6 +63,14 @@ const socketHandler = (server) => {
     socket.on("disconnect", () => {
       // 사전 정의 된 callback (disconnect, error)
       // delete user[socket.id];
+      io.emit("test", socket.id);
+      if (readyUsers.includes(socket.id)) {
+        console.log("readyUser", readyUsers);
+        readyUsers.forEach((user) => {
+          io.to(user).emit("reStart", true);
+        });
+        readyUsers = [];
+      }
     });
     // 이벤트 리스너 등록
     socket.on("event1", (msg) => {
@@ -85,7 +99,7 @@ const socketHandler = (server) => {
         io.to(id).emit("startGame", { readyUsers, idNames });
       });
     });
-    // let scoredUsers = [];
+
     // 점수 기록
     socket.on("record", (data) => {
       let userData = data.scoredUser;
